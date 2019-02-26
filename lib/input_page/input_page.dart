@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toy_store/app_bar.dart';
 import 'package:toy_store/fade_route.dart';
+import 'package:toy_store/input_page/Rlistview.dart';
 import 'package:toy_store/input_page/gender/gender_card.dart';
 import 'package:toy_store/input_page/height/height_card.dart';
 import 'package:toy_store/input_page/input_page_styles.dart';
@@ -20,12 +21,81 @@ class InputPage extends StatefulWidget {
   }
 }
 
+
+class my_drawer extends StatelessWidget {
+
+  Future<Null> signOut() async {
+  // Sign out with firebase
+  await FirebaseAuth.instance.signOut();
+  // Sign out with google
+  //await FirebaseAuth.instance._googleSignIn.signOut();
+  }
+  
+   @override
+   Widget build(BuildContext context) {
+     return new ListView(
+        children: <Widget>[
+          new UserAccountsDrawerHeader(
+            accountEmail: new FutureBuilder<FirebaseUser>(
+              future: FirebaseAuth.instance.currentUser(),
+              builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  //debugPrint(snapshot.data.displayName);
+                  if(snapshot.data.email==null){
+                    return new Text(snapshot.data.phoneNumber);
+
+                  } else {
+                    return new Text(snapshot.data.email);
+
+                  }
+                  
+                }
+                else {
+                  return new Text('Loading...');
+                }
+              },
+            ), 
+            accountName: new FutureBuilder<FirebaseUser>(
+              future: FirebaseAuth.instance.currentUser(),
+              builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if(snapshot.data.displayName==null){
+                    return new Text("");
+
+                  } else {
+                    return new Text(snapshot.data.displayName);
+
+                  }
+                  //return new Text(snapshot.data.displayName);
+                }
+                else {
+                  return new Text('Loading...');
+                }
+              },
+            ),
+          ),
+           new ListTile(
+            title: new Text("Logout"),
+            trailing: new Icon(Icons.exit_to_app),
+            onTap: (){signOut();},
+          ),
+          new ListTile(
+            title: new Text("Recommended list"),
+            
+            onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Rlistview()));},
+          )
+
+        ],
+      );
+   }
+ }
+
 class InputPageState extends State<InputPage> with TickerProviderStateMixin {
   AnimationController _submitAnimationController;
   Gender gender = Gender.other;
   int height = 180;
   int weight = 70;
-
+  var user;
   @override
   void initState() {
     super.initState();
@@ -40,6 +110,7 @@ class InputPageState extends State<InputPage> with TickerProviderStateMixin {
     });
 
     FirebaseAuth.instance.onAuthStateChanged.listen((firebaseUser) {
+      user = firebaseUser;
       if(firebaseUser==null){
         Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new LoginPage()));
         debugPrint(firebaseUser.toString()+'logout');
@@ -53,15 +124,20 @@ class InputPageState extends State<InputPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.topLeft,
       children: <Widget>[
         Scaffold(
+          
           appBar: PreferredSize(
             child: BmiAppBar(),
             preferredSize: Size.fromHeight(appBarHeight(context)),
           ),
+          drawer: new Drawer(child: new my_drawer()),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -136,6 +212,7 @@ class InputPageState extends State<InputPage> with TickerProviderStateMixin {
             weight: weight,
             height: height,
             gender: gender,
+            user: user,
           ),
     ));
   }
@@ -171,7 +248,7 @@ class InputSummaryCard extends StatelessWidget {
   Widget _genderText() {
     String genderText = gender == Gender.other
         ? '-'
-        : (gender == Gender.male ? 'Male' : 'Female');
+        : (gender == Gender.boy ? 'Boy' : 'Girl');
     return _text(genderText);
   }
 

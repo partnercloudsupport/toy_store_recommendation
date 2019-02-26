@@ -162,7 +162,7 @@ class _AuthScreenState extends State<AuthScreen> {
         user = account;
       }, onError: (error) {
         _showErrorSnackbar(
-            "Couldn't log in with your Google account, please try again!");
+            error);
       });
     }
 
@@ -277,6 +277,9 @@ class _AuthScreenState extends State<AuthScreen> {
   _finishSignIn(FirebaseUser user) async {
     await _onCodeVerified(user).then((result) {
       if (result) {
+      // UserUpdateInfo userInfo = new UserUpdateInfo();
+      // //userInfo.photoUrl=photoUrl;
+      // userInfo.displayName='fred';
         // Here, instead of navigating to another screen, you should do whatever you want
         // as the user is already verified with Firebase from both
         // Google and phone number methods

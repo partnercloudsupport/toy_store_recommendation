@@ -71,16 +71,16 @@ class _GenderCardState extends State<GenderCard>
         children: <Widget>[
           _drawCircleIndicator(),
           GenderIconTranslated(
-            gender: Gender.female,
-            isSelected: widget.gender == Gender.female,
+            gender: Gender.girl,
+            isSelected: widget.gender == Gender.girl,
           ),
           GenderIconTranslated(
             gender: Gender.other,
             isSelected: widget.gender == Gender.other,
           ),
           GenderIconTranslated(
-            gender: Gender.male,
-            isSelected: widget.gender == Gender.male,
+            gender: Gender.boy,
+            isSelected: widget.gender == Gender.boy,
           ),
           _drawGestureDetector(),
         ],
@@ -126,11 +126,11 @@ class TapHandler extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Expanded(
-            child: GestureDetector(onTap: () => onGenderTapped(Gender.female))),
+            child: GestureDetector(onTap: () => onGenderTapped(Gender.girl))),
         Expanded(
             child: GestureDetector(onTap: () => onGenderTapped(Gender.other))),
         Expanded(
-            child: GestureDetector(onTap: () => onGenderTapped(Gender.male))),
+            child: GestureDetector(onTap: () => onGenderTapped(Gender.boy))),
       ],
     );
   }

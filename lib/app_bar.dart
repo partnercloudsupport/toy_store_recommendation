@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toy_store/input_page/input_page_styles.dart';
-import 'package:toy_store/ui/menu.dart';
 import 'package:toy_store/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +9,7 @@ class BmiAppBar extends StatelessWidget {
   static const String wavingHandEmoji = "\uD83D\uDC4B";
   static const String whiteSkinTone = "\uD83C\uDFFB";
 
-  const BmiAppBar({Key key, this.isInputPage = true}) : super(key: key);
+  const BmiAppBar({Key key, this.isInputPage=true}) : super(key: key);
 
   Future<Null> signOut() async {
   // Sign out with firebase
@@ -37,9 +36,11 @@ class BmiAppBar extends StatelessWidget {
                 onTap: () {
                   //signOut();
                 },
-                child:_buildIcon(context),
+                child: new IconButton(icon: new Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
               ),
               
+              ),
             ],
           ),
         ),
@@ -61,13 +62,12 @@ class BmiAppBar extends StatelessWidget {
   RichText _buildLabel(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: DefaultTextStyle.of(context).style.copyWith(fontSize: 34.0),
+        style: DefaultTextStyle.of(context).style.copyWith(fontSize: 20.0),
         children: [
           TextSpan(
-            text: isInputPage ? "Hi " : "Recommended Toys",
+            text: isInputPage ? "Submit Child Details " : "Recommended toy store",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: isInputPage ? getEmoji(context) : ""),
         ],
       ),
     );
