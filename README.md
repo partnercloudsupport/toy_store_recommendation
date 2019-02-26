@@ -1,16 +1,47 @@
-# toy_store
-
-A new Flutter project.
+# Toy Store Recommender
+Flutter Project, Get recommended toystore based on user ratings.
 
 ## Getting Started
+**Note:** Make sure your [Flutter](https://flutter.io/getting-started/) environment is setup.
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+<div style="text-align: center"><table><tr>
+    <td style="text-align: center">
+        <img src="https://raw.githubusercontent.com/sanattaori/toy_store_recommendation/master/screenshots/1.png" width="200" />
+    </td>
+    <td style="text-align: center">
+        <img src="https://raw.githubusercontent.com/sanattaori/toy_store_recommendation/master/screenshots/2.png" width="200"/>
+    </td>
+    <td style="text-align: center">
+        <img src="https://raw.githubusercontent.com/sanattaori/toy_store_recommendation/master/screenshots/3.png" width="200"/>
+    </td>
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+</tr></table></div>
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+#### Clone the project
+In the command terminal, run the following commands:
+
+    $ git clone git@github.com:sanattaori/toy_store_recommendation.git
+    $ cd toy_store_recommendation/
+
+#### Change google maps api key
+    Specify your API key in the application manifest android/app/src/main/AndroidManifest.xml:
+
+#### Running project 
+    $ flutter run
+
+## Authors
+
+* **Sanat Taori** - *Initial work* - [sanattaori](https://github.com/sanattaori)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Login Screen from [The Gorgeous Login](https://github.com/huextrat/TheGorgeousLogin)
+
